@@ -15,11 +15,11 @@ const watcher = chokidar.watch(path.join(__dirname, '../src'),{
 let task;
 const run = () => {
   console.log(task ? '正在重启服务...' : '正在启动服务...')
-  exec('npm run build',()=>{
-    if (task) task.kill();
+  if (task) task.kill();
+  exec('npm run build',(error,stdout,stderr)=>{
     setTimeout(()=>{
       task = fork(path.join(__dirname, '../dist/app.js'))
-    },1000)
+    },3000)
   })
 }
 
