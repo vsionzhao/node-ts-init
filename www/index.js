@@ -17,7 +17,9 @@ const run = () => {
   console.log(task ? '正在重启服务...' : '正在启动服务...')
   exec('npm run build',()=>{
     if (task) task.kill();
-    task = fork(path.join(__dirname, '../dist/app.js'))
+    setTimeout(()=>{
+      task = fork(path.join(__dirname, '../dist/app.js'))
+    },1000)
   })
 }
 
