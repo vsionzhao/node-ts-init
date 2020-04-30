@@ -11,7 +11,8 @@ export type HttpMethodDecoratorType = (path: string, isVerify?: boolean) => (pro
  */
 function createMethodDecorator(method: string) {
     // 装饰器接收路由 path 作为参数
-    return function httpMethodDecorator(path: string, isVerify?: boolean) {
+    let fn: HttpMethodDecoratorType;
+     fn = function httpMethodDecorator(path: string, isVerify?: boolean) {
         return (proto: any, name: string) => {
             const target = proto.constructor;
             const routeMap = Reflect.getMetadata(ROUTER_MAP, target, 'method') || [];
@@ -19,6 +20,7 @@ function createMethodDecorator(method: string) {
             Reflect.defineMetadata(ROUTER_MAP, routeMap, target, 'method');
         };
     };
+     return fn;
 }
 
 const httpMethod = {} as HttpType;
