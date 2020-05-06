@@ -1,3 +1,4 @@
+const { debounce } = require('lodash');
 const path  = require('path')
 const chokidar = require('chokidar');
 const { exec, fork } = require('child_process');
@@ -13,7 +14,7 @@ const watcher = chokidar.watch(path.join(__dirname, '../src'),{
   cwd: '.', // 表示当前目录
 });
 let task;
-const run = () => {
+const run = debounce(() => {
   console.log(task ? '正在重启服务...' : '正在启动服务...')
   if (task) task.kill();
   exec('npm run build',(error,stdout,stderr)=>{
@@ -21,7 +22,7 @@ const run = () => {
       task = fork(path.join(__dirname, '../dist/app.js'))
     },3000)
   })
-}
+},2000)
 
 // 监听文件事件
 watcher.on('all',(event, path) => {

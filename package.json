@@ -32,6 +32,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.150",
     "axios": "^0.19.2",
     "chokidar": "^3.4.0",
     "del": "^5.1.0",
@@ -44,6 +45,7 @@
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
+    "lodash": "^4.17.15",
     "log4js": "^6.2.1",
     "reflect-metadata": "^0.1.13"
   }
