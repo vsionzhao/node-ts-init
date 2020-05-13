@@ -42,4 +42,6 @@ addRouter(router);
 app.use(router.routes()).use(router.allowedMethods());
 
 const service = new ServiceClass(app);
-service.openService();
+service.openService().then(()=>{
+    process.send('success')
+})

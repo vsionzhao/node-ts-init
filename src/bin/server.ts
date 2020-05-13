@@ -18,14 +18,22 @@ export default class Service{
     }
 
     public openService(port: number = this.port){
-        if (this.service){
-            this.service.close();
-        }
-        this.service = this.app.listen({
-            host:'localhost',
-            port,
-            exclusive: true
-        }).on('error', this.onerror.bind(this)).on("listening", this.onsuccess.bind(this))
+        return new Promise((resolve, reject)=>{
+            if (this.service){
+                this.service.close();
+            }
+            this.service = this.app.listen({
+                host:'localhost',
+                port,
+                exclusive: true
+            }).on('error', (e: any)=>{
+                this.onerror(e)
+                reject(e);
+            }).on("listening", ()=>{
+                this.onsuccess();
+                resolve();
+            })
+        });
     }
 
     public restart(){

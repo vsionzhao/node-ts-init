@@ -19,7 +19,14 @@ const run = debounce(() => {
   if (task) task.kill();
   exec('npm run build',(error,stdout,stderr)=>{
     setTimeout(()=>{
-      task = fork(path.join(__dirname, '../dist/app.js'))
+      try {
+        task = fork(path.join(__dirname, '../dist/app.js'))
+        task.on('message',()=>{
+          task.kill();
+        })
+      }catch (e) {
+        console.log('e', e);
+      }
     },3000)
   })
 },2000)
