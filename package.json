@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.150",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chokidar": "^3.4.0",
     "del": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
